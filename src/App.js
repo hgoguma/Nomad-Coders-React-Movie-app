@@ -2,44 +2,48 @@ import React, {Component} from 'react';
 import './App.css';
 import Movie from './Movie';
 
-const movies = [
-  {
-    title:'정직한 후보',
-    poster : 'https://pds.joins.com/news/component/htmlphoto_mmdata/201912/19/e6e9508a-6715-4936-8921-86c8975f2b54.jpg'
-  },
-  {
-    title:'기생충',
-    poster : 'https://image.jtbcplus.kr/data/contents/jam_photo/202002/22/96eb8445-fa66-48fd-ba33-10227b252783.jpg'
-  },
-  {
-    title : '1917',
-    poster : 'https://file.osen.co.kr/article/2020/01/21/202001210808771772_5e263509a2236.jpg'
-  },
-  {
-    title : '어스',
-    poster : 'data:image/jpeg;base64,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'
-  }
-]
 
 class App extends Component{
-
-  state = {
-    greeting : 'Hello'
-  }
+  state = {}
+  
   componentDidMount(){
-    setTimeout(() => {
-      this.setState({
-        greeting : 'Hello again'
-      })
-    }, 5000)
+    this._getMovies();
   }
+
+  _renderMovies = () => {
+    const movies = this.state.movies.map(( movie, index ) => {
+      return <Movie 
+      title={movie.title_english} 
+      poster={movie.medium_cover_image} 
+      key={movie.id}
+      genres={movie.genres}
+      synopsis={movie.synopsis}
+      />
+    })
+    return movies
+  }
+
+  //async : 이전 작업이 끝나야 그 다음 작업이 시작하는 형태가 아님! 순서 상관없이 시작됨
+   _getMovies = async () => {
+    const movies = await this._callApi(); 
+    //await : _callApi()가 끝나기를 기다림 -> return 되는게 무엇이든 setState로 넣어줌
+    //_callApi 작업이 완료되기 전까지(성공이 아님) setState 함수는 실행되지 않음!
+    this.setState({
+      movies
+    })
+  }
+
+  _callApi = () => {
+    return fetch('https://yts.mx/api/v2/list_movies.json?sort_by=like_count')
+   .then(response => response.json())
+   .then(json =>  json.data.movies)
+   .catch(err => console.log(err))
+  }
+
   render(){
     return (
       <div className="App">
-        {this.state.greeting}
-        {movies.map(( movie, index ) => {
-          return <Movie title={movie.title} poster={movie.poster} key={index}></Movie>
-        })}
+       {this.state.movies ? this._renderMovies() : 'Loading'}
       </div>
     )
   }
